@@ -45,7 +45,6 @@ export class FaceClusterScatter extends Component {
           name: el.person_name,
           color: el.color,
           face_url: el.face_url,
-          photo: el.photo,
         };
       });
       return (

@@ -232,6 +232,14 @@ export class PhotoListView extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
+    //console.log("cellRenderer")
+    //console.log(columnIndex)
+    //console.log(key)
+    //console.log(rowIndex)
+    //console.log(style)
+    //console.log(this.state.cellContents[rowIndex][columnIndex])
+    //console.log(this.props)
+
     if (this.state.cellContents[rowIndex][columnIndex]) {
       // non-empty cell
       const cell = this.state.cellContents[rowIndex][columnIndex];
@@ -563,7 +571,8 @@ export class PhotoListView extends Component {
             );
           } else {
             // normal mode
-
+            console.log("normal mode")
+            console.log(this.props)
             return (
               <div className="gridCell" key={key} style={style}>
                 {(this.props.photoDetails[cell.image_hash]
@@ -1367,6 +1376,8 @@ export class PhotoListView extends Component {
 class ModalAlbumEdit extends Component {
   state = { newAlbumTitle: "" };
   render() {
+    console.log("ModalAlbumEdit")
+    console.log(this.props)
     if (this.state.newAlbumTitle.length > 0) {
       var filteredUserAlbumList = this.props.albumsUserList.filter(el =>
         fuzzy_match(

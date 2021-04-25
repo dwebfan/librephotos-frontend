@@ -12,14 +12,8 @@ export default (state=initialState, action) => {
     switch(action.type) {
         case "LOGIN_FULFILLED":
             return {
-            access: {
-                token: action.payload.access,
-                ...jwtDecode(action.payload.access)
-            },
-            refresh: {
-                token: action.payload.refresh,
-                ...jwtDecode(action.payload.refresh)
-            },
+            access: {token: action.payload.Token, exp: (new Date(2022,1,1)).getTime(), name: "alice", user_id: 1},
+            refresh: {token: action.payload.Token, exp: (new Date(2022,1,1)).getTime()},
             errors: {}
         }
         case "LOGIN_REJECTED":
@@ -39,14 +33,8 @@ export default (state=initialState, action) => {
 
         case auth.LOGIN_SUCCESS:
             return {
-            access: {
-                token: action.payload.access,
-                ...jwtDecode(action.payload.access)
-            },
-            refresh: {
-                token: action.payload.refresh,
-                ...jwtDecode(action.payload.refresh)
-            },
+            access: {token: action.payload.Token},
+            refresh: {token: action.payload.Token},
             errors: {}
         }
         case auth.TOKEN_RECEIVED:
@@ -93,9 +81,12 @@ export function isAccessTokenExpired(state) {
 }
 
 export function isRefreshTokenExpired(state) {
+    console.log("isRefreshTokenExpired")
+    console.log(state)
     if (state.refresh && state.refresh.exp) {
         return 1000 * state.refresh.exp - (new Date()).getTime() < 5000
     }
+
     return true
 }
 

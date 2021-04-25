@@ -60,6 +60,8 @@ export class LightBox extends Component {
   };
 
   render() {
+    console.log("light box show");
+    console.log(this.props)
     if (
       !this.props.photoDetails[
         this.props.idx2hash.slice(this.props.lightboxImageIndex)[0]
@@ -380,7 +382,7 @@ export class LightBox extends Component {
                         <Item.Description>
                           <Breadcrumb
                             as={Link}
-                            to={serverAddress+'/media/photos/'+this.props.idx2hash[this.props.lightboxImageIndex]+'.jpg'}
+                            to={serverAddress+'/assets/'+this.props.idx2hash[this.props.lightboxImageIndex]}
                             target='_blank'
                             divider="/"
                             sections={this.props.photoDetails[

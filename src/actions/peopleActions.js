@@ -4,9 +4,9 @@ import {Server} from '../api_client/apiClient'
 export function fetchPeople() {
   return function(dispatch) {
     dispatch({type: "FETCH_PEOPLE"});
-    Server.get("persons/?page_size=1000")
+    Server.get("persons", { crossDomain: true })
       .then((response) => {
-        var mappedPeopleDropdownOptions = response.data.results.map(function(person){
+        var mappedPeopleDropdownOptions = response.data.map(function(person){
           return (
             {
               key:person.id,
@@ -31,7 +31,7 @@ export function fetchPeople() {
 export function addPerson(person_name) {
   return function(dispatch){
     dispatch({type:"ADD_PERSON"})
-    Server.post("persons/",{"name":person_name})
+    Server.post("persons",{"name":person_name})
       .then((response) => {
         const personDropdownOption = {
           text:response.data.name, 
@@ -64,7 +64,7 @@ export function addPersonAndSetLabelToFace(person_name,face_id) {
   return function(dispatch){
     dispatch({type:"ADD_PERSON_AND_SET_FACE_LABEL"})
     // Make post request to /persons/
-    Server.post("persons/",{"name":person_name})
+    Server.post("persons",{"name":person_name})
       .then((response1) => {
         var personDropdownOption1 = {
           text: response1.data.name,

@@ -21,10 +21,10 @@ export class LoginPage extends Component {
   }
 
   state = {
-    username: "",
-    password: "",
-    serverAddress: "",
-    serverProtocol: "https://"
+    username: "alice",
+    password: "alice123",
+    serverAddress: "localhost:8000",
+    serverProtocol: "http://"
   };
   componentDidMount() {
     this.props.fetchSiteSettings()
@@ -37,12 +37,12 @@ export class LoginPage extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.onSubmit(this.state.username.toLowerCase(), this.state.password);
+    this.props.onSubmit(this.state.serverAddress, this.state.username.toLowerCase(), this.state.password);
   }
 
   render() {
 
-    const { username, password } = this.state;
+    const { serverAddress, username, password } = this.state;
 
     const timeNow = new Date().toLocaleTimeString();
 
@@ -63,12 +63,22 @@ export class LoginPage extends Component {
         <div style={{ maxWidth: 500, padding: 20, margin: "0 auto" }}>
           <Header as="h3" textAlign="center">
             <Image src={"/logo.png"} />
-            <Header.Content>LibrePhotos </Header.Content>
+            <Header.Content>Lomorage </Header.Content>
           </Header>
           <Segment attached>
             <Header>Login</Header>
 
             <Form onSubmit={this.onSubmit}>
+              <Form.Field>
+                <label>Lomod Server Address</label>
+                <Form.Input
+                  icon="server"
+                  placeholder="ServerAddress"
+                  name="serverAddress"
+                  value={serverAddress}
+                  onChange={this.handleChange}
+                />
+              </Form.Field>
               <Form.Field>
                 <label>User Name</label>
                 <Form.Input

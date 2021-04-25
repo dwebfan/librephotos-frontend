@@ -89,6 +89,7 @@ export class AlbumPlace extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
+    console.log("AlbumPlace")
     var place = this.props.albumsPlaceListGroupedByGeolocationLevel[
       this.state.geolocationLevel
     ];

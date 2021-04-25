@@ -71,6 +71,8 @@ export class AlbumThing extends Component {
   }
 
   cellRenderer = ({ columnIndex, key, rowIndex, style }) => {
+    console.log("AlbumThing cell render")
+    console.log(this.props)
     var albumThingIndex =
       rowIndex * this.state.numEntrySquaresPerRow + columnIndex;
     if (albumThingIndex < this.props.albumsThingList.length) {

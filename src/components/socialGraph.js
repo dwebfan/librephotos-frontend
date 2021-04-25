@@ -20,7 +20,6 @@ export class SocialGraph extends Component {
 		var data = this.props.socialGraph
 		var myConfig = {
 			automaticRearrangeAfterDropNode: false,
-			staticGraph:true,
 		    nodeHighlightBehavior: true,
 		    maxZoom: 4,
 		    minZoom: 0.1,

@@ -92,6 +92,8 @@ export class UserPublicPage extends Component {
         </div>
       );
     }
+    console.log("getDerivedStateFromProps")
+    console.log(this.props.match.params.username)
     return (
       <div>
         {menu}

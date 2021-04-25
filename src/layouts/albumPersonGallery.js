@@ -19,6 +19,8 @@ export class AlbumPersonGallery extends Component {
 
 
   static getDerivedStateFromProps(nextProps,prevState){
+    console.log("getDerivedStateFromProps")
+    console.log(nextProps)
     if (nextProps.albumsPeople.hasOwnProperty(nextProps.match.params.albumID)){
       const photos = nextProps.albumsPeople[nextProps.match.params.albumID].photos
       if (prevState.idx2hash.length !== photos.length) {

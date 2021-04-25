@@ -29,7 +29,9 @@ export class EventCountMonthGraph extends Component {
 
   render() {
     if (this.props.fetchedPhotoMonthCounts) {
-      var countDict = this.props.photoMonthCounts
+      console.log("photoMonthCounts")
+      console.log(this.props)
+        var countDict = this.props.photoMonthCounts
       var series = countDict.map(function(el){
         return {y:el.count,month:el.month}
       })

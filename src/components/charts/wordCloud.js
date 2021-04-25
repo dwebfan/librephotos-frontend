@@ -40,6 +40,9 @@ export class WordCloud extends Component {
       else {
         var series = [{data:wordCloud.people}]        
       }
+      
+      console.log("fetchedWordCloud")
+      console.log(series)
       var chart = (
         <div>
           <Header as='h3'>{title}</Header>
@@ -48,7 +51,8 @@ export class WordCloud extends Component {
               height={this.props.height-70}
               series={series}>
               <Transform method={['transpose']}>
-                <Cloud font='sans-serif' minFontsSize={10} maxFontSize={50}/>
+                <Cloud font='sans-serif' minFontsSize={24} maxFontSize={72} padding={2} 
+                rotate={() => (~~(Math.random() * 12) - 6) * 15}/>
               </Transform>
             </Chart>
         </div>

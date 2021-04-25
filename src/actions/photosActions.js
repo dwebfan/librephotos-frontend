@@ -387,12 +387,16 @@ export function fetchPhotoDetail(image_hash) {
     dispatch({ type: "FETCH_PHOTO_DETAIL", payload: image_hash });
     Server.get(`photos/${image_hash}/`, { timeout: 100000 })
       .then(response => {
+        console.log("FETCH_PHOTO_DETAIL response")
+        console.log(response.data)
         dispatch({
           type: "FETCH_PHOTO_DETAIL_FULFILLED",
           payload: response.data
         });
       })
       .catch(err => {
+        console.log("FETCH_PHOTO_DETAIL failure")
+        console.log(err)
         dispatch({ type: "FETCH_PHOTO_DETAIL_REJECTED", payload: err });
       });
   };

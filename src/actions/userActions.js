@@ -4,7 +4,7 @@ import { Server } from "../api_client/apiClient";
 export function fetchUserSelfDetails(user_id) {
   return function(dispatch) {
     dispatch({ type: "FETCH_USER_SELF_DETAILS" });
-    Server.get(`/user/${user_id}/`)
+    Server.get(`/me`)
       .then(response => {
         dispatch({
           type: "FETCH_USER_SELF_DETAILS_FULFILLED",

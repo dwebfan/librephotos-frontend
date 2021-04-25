@@ -302,6 +302,9 @@ export class FaceDashboard extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     var t0 = performance.now();
 
+    console.log("getDerivedStateFromProps")
+    console.log(nextProps)
+    console.log(prevState)
     var inferredGroupedByPerson = _.groupBy(
       nextProps.inferredFacesList,
       (el) => el.person_name
@@ -332,6 +335,9 @@ export class FaceDashboard extends Component {
 
     var idx2hash = [];
 
+    console.log(inferredGroupedByPersonList)
+    console.log(labeledGroupedByPersonList)
+
     const inferredCellContents = calculateFaceGridCells(
       inferredGroupedByPersonList,
       prevState.numEntrySquaresPerRow
@@ -347,6 +353,9 @@ export class FaceDashboard extends Component {
       inferredGroupedByPersonList,
       labeledGroupedByPersonList,
     };
+
+    console.log(nextState)
+
     return nextState;
   }
 
@@ -442,6 +451,8 @@ export class FaceDashboard extends Component {
     } else {
       var cell = this.state.inferredCellContents[rowIndex][columnIndex];
     }
+    console.log("cellRenderer")
+    console.log()
 
     if (cell) {
       if (!cell.image) {
@@ -541,7 +552,7 @@ export class FaceDashboard extends Component {
           // TODO: janky shit going on in the next line!
           var faceImageSrc =
             serverAddress +
-            "/media/faces/" +
+            "/clusterfaces/" +
             _.reverse(cell.image.split("/"))[0];
           if (this.state.selectMode) {
             const isSelected = this.state.selectedFaces.includes(cell.id);

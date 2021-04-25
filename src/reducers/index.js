@@ -35,6 +35,9 @@ export default (state,action) => {
 		state = {}
 	}
 
+  console.log("reducer index: ")
+  console.log(action)
+  console.log(state)
 	return appReducer(state,action)
 }
 

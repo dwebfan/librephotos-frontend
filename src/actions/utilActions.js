@@ -38,7 +38,7 @@ export function deleteJob(job_id,page=1,page_size=10) {
 export function setSiteSettings(siteSettings) {
   return function(dispatch) {
     dispatch({ type: "SET_SITE_SETTINGS" });
-    Server.post("sitesettings/",siteSettings)
+    Server.post("sitesettings",siteSettings)
       .then(response => {
         dispatch({
           type: "SET_SITE_SETTINGS_FULFILLED",
@@ -55,7 +55,7 @@ export function setSiteSettings(siteSettings) {
 export function fetchSiteSettings() {
   return function(dispatch) {
     dispatch({ type: "FETCH_SITE_SETTINGS" });
-    Server.get("sitesettings/")
+    Server.get("sitesettings")
       .then(response => {
         dispatch({
           type: "FETCH_SITE_SETTINGS_FULFILLED",
@@ -212,6 +212,8 @@ export function manageUpdateUser(user) {
 
 export function fetchWorkerAvailability(prevRunningJob) {
   return function(dispatch) {
+    console.log("TBD: add FETCH_WORKER_AVAILABILITY")
+    /*
     dispatch({ type: "FETCH_WORKER_AVAILABILITY" });
     Server.get("rqavailable/")
       .then(response => {
@@ -256,6 +258,7 @@ export function fetchWorkerAvailability(prevRunningJob) {
           dispatch(logout())
         }
       });
+      */
   };
 }
 
@@ -328,11 +331,13 @@ export function generateEventAlbumTitles() {
 export function fetchExampleSearchTerms() {
   return function(dispatch) {
     dispatch({ type: "FETCH_EXAMPLE_SEARCH_TERMS" });
-    Server.get(`searchtermexamples/`)
+    Server.get(`searchtermexamples`)
       .then(response => {
+        console.log("searchtermexamples")
+        console.log(response.data)
         dispatch({
           type: "FETCH_EXAMPLE_SEARCH_TERMS_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -344,7 +349,7 @@ export function fetchExampleSearchTerms() {
 export function fetchLocationSunburst() {
   return function(dispatch) {
     dispatch({ type: "FETCH_LOCATION_SUNBURST" });
-    Server.get(`locationsunburst/`)
+    Server.get(`locationsunburst`)
       .then(response => {
         dispatch({
           type: "FETCH_LOCATION_SUNBURST_FULFILLED",
@@ -360,7 +365,7 @@ export function fetchLocationSunburst() {
 export function fetchLocationTimeline() {
   return function(dispatch) {
     dispatch({ type: "FETCH_LOCATION_TIMELINE" });
-    Server.get(`locationtimeline/`)
+    Server.get(`locationtimeline`)
       .then(response => {
         dispatch({
           type: "FETCH_LOCATION_TIMELINE_FULFILLED",
@@ -427,7 +432,7 @@ export function fetchAutoAlbumProcessingStatus() {
 export function fetchLocationClusters() {
   return function(dispatch) {
     dispatch({ type: "FETCH_LOCATION_CLUSTERS" });
-    Server.get(`locclust/`)
+    Server.get(`albums/placeclusters`)
       .then(response => {
         dispatch({
           type: "FETCH_LOCATION_CLUSTERS_FULFILLED",
@@ -459,7 +464,7 @@ export function fetchPhotoCountryCounts() {
 export function fetchPhotoMonthCounts() {
   return function(dispatch) {
     dispatch({ type: "FETCH_PHOTO_MONTH_COUNTS" });
-    Server.get(`photomonthcounts/`)
+    Server.get(`photomonthcounts`)
       .then(response => {
         dispatch({
           type: "FETCH_PHOTO_MONTH_COUNTS_FULFILLED",
@@ -475,7 +480,7 @@ export function fetchPhotoMonthCounts() {
 export function fetchWordCloud() {
   return function(dispatch) {
     dispatch({ type: "FETCH_WORDCLOUD" });
-    Server.get(`wordcloud/`)
+    Server.get(`wordcloud`)
       .then(response => {
         dispatch({ type: "FETCH_WORDCLOUD_FULFILLED", payload: response.data });
       })

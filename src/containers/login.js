@@ -8,8 +8,9 @@ import { authErrors, isRefreshTokenExpired } from '../reducers'
 
 
 const Login = (props) => {
+  console.log(props)
   if(props.isAuthenticated) {
-    console.log(props)
+    console.log("authenticated: " + props)
     if (props.location.state) {
       return (
         <Redirect to={props.location.state.from.pathname} />
@@ -20,7 +21,7 @@ const Login = (props) => {
       )
     }
   } else {
-    console.log(props)
+    console.log("start authenticate: " + props)
     return (
       <div className="login-page">
         <LoginPage {...props}/>
@@ -36,8 +37,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (username, password) => {
-    dispatch(login(username, password))
+  onSubmit: (serverAddress, username, password) => {
+    dispatch(login(serverAddress, username, password))
   },
   fetchSiteSettings: () => {
     dispatch(fetchSiteSettings())

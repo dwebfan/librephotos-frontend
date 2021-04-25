@@ -6,11 +6,11 @@ import { push } from "react-router-redux";
 export function fetchThingAlbumsList() {
   return function(dispatch) {
     dispatch({ type: "FETCH_THING_ALBUMS_LIST" });
-    Server.get("albums/thing/list/")
+    Server.get("albums/thing")
       .then(response => {
         dispatch({
           type: "FETCH_THING_ALBUMS_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -38,11 +38,11 @@ export function fetchThingAlbum(album_id) {
 export function fetchUserAlbumsList() {
   return function(dispatch) {
     dispatch({ type: "FETCH_USER_ALBUMS_LIST" });
-    Server.get("albums/user/list/")
+    Server.get("albums/user")
       .then(response => {
         dispatch({
           type: "FETCH_USER_ALBUMS_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -173,7 +173,7 @@ export function editUserAlbum(album_id, title, image_hashes) {
 export function fetchPlaceAlbumsList() {
   return function(dispatch) {
     dispatch({ type: "FETCH_PLACE_ALBUMS_LIST" });
-    Server.get("albums/place/list/")
+    Server.get("albums/place")
       .then(response => {
         var byGeolocationLevel = _.groupBy(
           response.data.results,
@@ -185,7 +185,7 @@ export function fetchPlaceAlbumsList() {
         });
         dispatch({
           type: "FETCH_PLACE_ALBUMS_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -213,7 +213,7 @@ export function fetchPlaceAlbum(album_id) {
 export function fetchPeopleAlbums(person_id) {
   return function(dispatch) {
     dispatch({ type: "FETCH_PEOPLE_ALBUMS" });
-    Server.get(`albums/person/${person_id}/`)
+    Server.get(`albums/user/${person_id}`)
       .then(response => {
         dispatch({
           type: "FETCH_PEOPLE_ALBUMS_FULFILLED",
@@ -250,7 +250,7 @@ export function fetchAutoAlbums() {
       .then(response => {
         dispatch({
           type: "FETCH_AUTO_ALBUMS_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -268,7 +268,7 @@ export function fetchAutoAlbumsList() {
       .then(response => {
         dispatch({
           type: "FETCH_AUTO_ALBUMS_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -284,7 +284,7 @@ export function fetchDateAlbumsList() {
       .then(response => {
         dispatch({
           type: "FETCH_DATE_ALBUMS_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
       })
       .catch(err => {
@@ -296,18 +296,20 @@ export function fetchDateAlbumsList() {
 export function fetchDateAlbumsPhotoHashList() {
   return function(dispatch) {
     dispatch({ type: "FETCH_DATE_ALBUMS_PHOTO_HASH_LIST" });
-    Server.get("albums/date/photohash/list/", { timeout: 100000 })
+    Server.get("albums/date/photohash/list", { timeout: 100000 })
       .then(response => {
         var idx2hash = [];
-        response.data.results.forEach(day => {
+        response.data.forEach(day => {
           day.photos.forEach(photo => {
             idx2hash.push(photo.image_hash);
           });
         });
         dispatch({
           type: "FETCH_DATE_ALBUMS_PHOTO_HASH_LIST_FULFILLED",
-          payload: response.data.results
+          payload: response.data
         });
+        console.log("SET_IDX_TO_IMAGE_HASH")
+        console.log(idx2hash)
         dispatch({ type: "SET_IDX_TO_IMAGE_HASH", payload: idx2hash });
       })
       .catch(err => {
