@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {Image} from "semantic-ui-react";
+import { Image, Embed, Label} from "semantic-ui-react";
 import { Server } from "../api_client/apiClient";
 
 
@@ -8,11 +8,30 @@ export class SecuredImageJWT extends Component {
 
 
   render() {
-    return (
-      <Image
-        {...this.props}
-      />
-    );
+    console.log(this.props)
+    if (this.props.extension === "mp4" || this.props.extension === "mov" 
+        || this.props.extension === "webm" || this.props.extension === "3gp") {
+      return (
+        <Embed
+          icon='right circle play'
+          placeholder={this.props.src} url={this.props.src}
+          onClick={this.props.onClick}
+        />
+      );
+    } else if (this.props.extension === "zip") {
+      return (
+        <Image
+          {...this.props}
+        >
+        </Image>
+      );
+    } else {
+      return (
+        <Image
+          {...this.props}
+        />
+      );
+    }
   }
 }
 

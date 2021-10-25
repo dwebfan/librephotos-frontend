@@ -1,9 +1,9 @@
 export default function reducer(
   state = {
 
-    siteSettings: {},
-    fetchingSiteSettings: false,
-    fetchedSiteSettings: false,
+    systemInfo: {},
+    fetchingSytemInfo: false,
+    fetchedSytemInfo: false,
 
     countStats: {},
     fetchingCountStats: false,
@@ -99,27 +99,27 @@ export default function reducer(
     case "SET_SITE_SETTINGS_FULFILLED": {
       return {
         ...state,
-        siteSettings: action.payload
+        systemInfo: action.payload
       };
     }
 
 
 
-    case "FETCH_SITE_SETTINGS": {
-      return { ...state, fetchingSiteSettings: true };
+    case "FETCH_SYSTEM_INFO": {
+      return { ...state, fetchingSytemInfo: true };
     }
-    case "FETCH_SITE_SETTINGS_FULFILLED": {
+    case "FETCH_SYSTEM_INFO_FULFILLED": {
       return {
         ...state,
-        fetchingSiteSettings: false,
-        fetchedSiteSettings: true,
-        siteSettings: action.payload
+        fetchingSytemInfo: false,
+        fetchedSytemInfo: true,
+        systemInfo: action.payload
       };
     }
-    case "FETCH_SITE_SETTINGS_REJECTED": {
+    case "FETCH_SYSTEM_INFO_REJECTED": {
       return {
         ...state,
-        fetchingSiteSettings:false,
+        fetchingSytemInfo:false,
       }
     }
 

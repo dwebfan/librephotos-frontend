@@ -313,6 +313,7 @@ NoTimestampPhotosView = connect((store)=>{
   	fetchingNoTimestampPhotos: store.photos.fetchingNoTimestampPhotos,
 	fetchedNoTimestampPhotos: store.photos.fetchedNoTimestampPhotos,
     noTimestampPhotos: store.photos.noTimestampPhotos,
+    
     photoDetails: store.photos.photoDetails,
     fetchingPhotoDetail: store.photos.fetchingPhotoDetail,
     fetchedPhotoDetail: store.photos.fetchedPhotoDetail,

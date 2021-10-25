@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { LoginPage } from '../layouts/loginPage'
 import { login } from  '../actions/authActions'
-import { fetchSiteSettings } from '../actions/utilActions'
+import { fetchSystemInfo } from '../actions/utilActions'
 import { authErrors, isRefreshTokenExpired } from '../reducers'
 
 
@@ -32,7 +32,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
   errors: authErrors(state),
-  siteSettings: state.util.siteSettings,
+  systemInfo: state.util.systemInfo,
   isAuthenticated: !isRefreshTokenExpired(state),
 })
 
@@ -40,8 +40,8 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: (serverAddress, username, password) => {
     dispatch(login(serverAddress, username, password))
   },
-  fetchSiteSettings: () => {
-    dispatch(fetchSiteSettings())
+  fetchSystemInfo: () => {
+    dispatch(fetchSystemInfo())
   }
 
 })

@@ -296,7 +296,7 @@ export function fetchDateAlbumsList() {
 export function fetchDateAlbumsPhotoHashList() {
   return function(dispatch) {
     dispatch({ type: "FETCH_DATE_ALBUMS_PHOTO_HASH_LIST" });
-    Server.get("albums/date/photohash/list", { timeout: 100000 })
+    Server.get("assets/date", { timeout: 100000 })
       .then(response => {
         var idx2hash = [];
         response.data.forEach(day => {

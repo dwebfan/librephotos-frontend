@@ -27,7 +27,7 @@ export class LoginPage extends Component {
     serverProtocol: "http://"
   };
   componentDidMount() {
-    this.props.fetchSiteSettings()
+    this.props.fetchSystemInfo()
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -103,11 +103,11 @@ export class LoginPage extends Component {
                 <Form.Button fluid color="blue" content="Log in" />
 
                 {
-                  this.props.siteSettings.allow_registration &&
+                  this.props.systemInfo.AllowRegistration &&
                     <div>
                       <Divider />
                       <Button
-                        disabled={!this.props.siteSettings.allow_registration}
+                      disabled={!this.props.systemInfo.AllowRegistration}
                         as={Link}
                         to="/signup"
                         fluid

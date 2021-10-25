@@ -475,6 +475,7 @@ HiddenPhotos = connect((store)=>{
     people: store.people.people,
     fetchedPeople: store.people.fetched,
     fetchingPeople: store.people.fetching,
+
     photoDetails: store.photos.photoDetails,
     fetchingPhotoDetail: store.photos.fetchingPhotoDetail,
     fetchedPhotoDetail: store.photos.fetchedPhotoDetail,

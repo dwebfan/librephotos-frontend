@@ -193,6 +193,7 @@ export class PhotoListView extends Component {
   }
 
   onPhotoClick(hash) {
+    console.log("---- photo click: " + hash)
     this.setState({
       lightboxImageIndex: this.props.idx2hash.indexOf(hash),
       lightboxShow: true
@@ -239,6 +240,17 @@ export class PhotoListView extends Component {
     //console.log(style)
     //console.log(this.state.cellContents[rowIndex][columnIndex])
     //console.log(this.props)
+
+    console.log("width: " + this.state.width)
+    console.log(this.state.cellContents[rowIndex][columnIndex])
+    var livePhotoIcon = (
+      <div 
+        style={{ left: this.state.entrySquareSize / 2 - 32, top: this.state.entrySquareSize / 2 - 32, position: "absolute" }}
+      >
+        <Icon fitted name="right bullseye" size="huge" inverted
+        />
+      </div>
+    );
 
     if (this.state.cellContents[rowIndex][columnIndex]) {
       // non-empty cell
@@ -573,6 +585,8 @@ export class PhotoListView extends Component {
             // normal mode
             console.log("normal mode")
             console.log(this.props)
+            console.log(cell)
+
             return (
               <div className="gridCell" key={key} style={style}>
                 {(this.props.photoDetails[cell.image_hash]
@@ -588,6 +602,7 @@ export class PhotoListView extends Component {
                   />
                 ) : (
                   <SecuredImageJWT
+                    extension={cell.image_extension}
                     isPublic={this.props.isPublic}
                     key={"daygroup_image_" + cell.image_hash}
                     style={{ display: "inline-block", padding: 1, margin: 0 }}
@@ -598,9 +613,7 @@ export class PhotoListView extends Component {
                     width={this.state.entrySquareSize}
                     src={
                       serverAddress +
-                      "/media/square_thumbnails/" +
-                      cell.image_hash +
-                      ".jpg"
+                      "/asset/preview/" + cell.image_hash + "?width=320&token=" + this.props.auth.access.token
                     }
                   />
                 )}
@@ -629,6 +642,7 @@ export class PhotoListView extends Component {
                   )}
                 </div>
                 {!this.props.isPublic && hiddenIcon}
+                {cell.image_extension === "zip" && livePhotoIcon}
                 {!this.props.isPublic && favIcon}
                 {!this.props.isPublic && publicIcon}
               </div>
@@ -683,6 +697,7 @@ export class PhotoListView extends Component {
       hash2row,
       imagesGroupedByDate
     };
+
     return nextState;
   }
 
@@ -1522,9 +1537,7 @@ class ModalAlbumEdit extends Component {
                       src={
                         item.cover_photos[0]
                           ? serverAddress +
-                            "/media/square_thumbnails_small/" +
-                            item.cover_photos[0].image_hash +
-                            ".jpg"
+                            "/asset/preview/" + item.cover_photos[0].image_hash + "?width=75"
                           : "/thumbnail_placeholder.png"
                       }
                     />
@@ -1566,6 +1579,8 @@ PhotoListView = connect(store => {
     photoDetails: store.photos.photoDetails,
     fetchingPhotoDetail: store.photos.fetchingPhotoDetail,
     fetchedPhotoDetail: store.photos.fetchedPhotoDetail,
+
+    auth: store.auth,
 
     route: store.routerReducer
   };

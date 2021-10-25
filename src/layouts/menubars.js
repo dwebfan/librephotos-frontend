@@ -308,6 +308,8 @@ export class TopMenu extends Component {
   }
 
   render() {
+    // TODO: re-enable menu bar - original one
+    /*
     if(this.state.avatarImgSrc == "/unknown_user.jpg"){
       console.log(this.state.avatarImgSrc);
       if (this.props.userSelfDetails && this.props.userSelfDetails.avatar_url) {
@@ -460,6 +462,270 @@ export class TopMenu extends Component {
                   )}
                 </Dropdown.Menu>
               </Dropdown>
+            </Menu.Item>
+          </Menu.Menu>
+        </Menu>
+        {this.state.searchBarFocused && (
+          <div
+            style={{
+              paddingTop: 5,
+              paddingLeft: 10,
+              paddingRight: 10,
+              width: searchBarWidth,
+              textAlign: "left",
+              zIndex: 120,
+              top: topMenuHeight,
+              left: (this.state.width - searchBarWidth) / 2,
+              position: "absolute",
+            }}
+          >
+            <Header as="h3" attached="top">
+              Search Suggestions
+            </Header>
+            {filteredExampleSearchTerms.length > 0 && (
+              <Segment
+                attached
+                raised
+                textAlign="left"
+                style={{ paddingTop: 0, paddingRight: 0, paddingBottom: 0 }}
+              >
+                <div
+                  style={{
+                    maxHeight: window.innerHeight / 8,
+                    overflowY: "auto",
+                  }}
+                >
+                  <div style={{ height: 10 }} />
+                  {filteredExampleSearchTerms.slice(0, 10).map((el) => {
+                    return (
+                      <p
+                        key={"suggestion_" + el}
+                        onClick={() => {
+                          this.props.dispatch(searchPhotos(el));
+                          this.props.dispatch(searchPeople(el));
+                          this.props.dispatch(searchThingAlbums(el));
+                          this.props.dispatch(searchPlaceAlbums(el));
+                          this.props.dispatch(push("/search"));
+                        }}
+                      >
+                        <Icon name="search" />
+                        {el}
+                      </p>
+                    );
+                  })}
+                  <div style={{ height: 5 }} />
+                </div>
+              </Segment>
+            )}
+            {filteredSuggestedUserAlbums.length > 0 && (
+              <Header as="h4" attached>
+                My Albums
+              </Header>
+            )}
+            {filteredSuggestedUserAlbums.length > 0 && (
+              <Segment
+                attached
+                raised
+                textAlign="left"
+                style={{ paddingTop: 0, paddingRight: 0, paddingBottom: 0 }}
+              >
+                <div
+                  style={{
+                    maxHeight: window.innerHeight / 8,
+                    overflowY: "auto",
+                  }}
+                >
+                  <div style={{ height: 10 }} />
+                  {filteredSuggestedUserAlbums.slice(0, 10).map((album) => {
+                    return (
+                      <p
+                        key={"suggestion_place_" + album.title}
+                        onClick={() => {
+                          this.props.dispatch(push(`/useralbum/${album.id}`));
+                          this.props.dispatch(fetchUserAlbum(album.id));
+                        }}
+                      >
+                        <Icon name="bookmark" />
+                        {album.title}
+                      </p>
+                    );
+                  })}
+                  <div style={{ height: 5 }} />
+                </div>
+              </Segment>
+            )}
+
+            {filteredSuggestedPlaces.length > 0 && (
+              <Header as="h4" attached>
+                Places
+              </Header>
+            )}
+            {filteredSuggestedPlaces.length > 0 && (
+              <Segment
+                attached
+                raised
+                textAlign="left"
+                style={{ paddingTop: 0, paddingRight: 0, paddingBottom: 0 }}
+              >
+                <div
+                  style={{
+                    maxHeight: window.innerHeight / 8,
+                    overflowY: "auto",
+                  }}
+                >
+                  <div style={{ height: 10 }} />
+                  {filteredSuggestedPlaces.slice(0, 10).map((place) => {
+                    return (
+                      <p
+                        key={"suggestion_place_" + place.title}
+                        onClick={() => {
+                          this.props.dispatch(push(`/place/${place.id}`));
+                          this.props.dispatch(fetchPlaceAlbum(place.id));
+                        }}
+                      >
+                        <Icon name="map outline" />
+                        {place.title}
+                      </p>
+                    );
+                  })}
+                  <div style={{ height: 5 }} />
+                </div>
+              </Segment>
+            )}
+
+            {filteredSuggestedThings.length > 0 && (
+              <Header as="h4" attached>
+                Things
+              </Header>
+            )}
+            {filteredSuggestedThings.length > 0 && (
+              <Segment
+                attached
+                raised
+                textAlign="left"
+                style={{ paddingTop: 0, paddingRight: 0, paddingBottom: 0 }}
+              >
+                <div
+                  style={{
+                    maxHeight: window.innerHeight / 8,
+                    overflowY: "auto",
+                  }}
+                >
+                  <div style={{ height: 10 }} />
+                  {filteredSuggestedThings.slice(0, 10).map((thing) => {
+                    return (
+                      <p
+                        key={"suggestion_thing_" + thing.title}
+                        onClick={() => {
+                          this.props.dispatch(push(`/search`));
+                          this.props.dispatch(searchPhotos(thing.title));
+                        }}
+                      >
+                        <Icon name="tag" />
+                        {thing.title}
+                      </p>
+                    );
+                  })}
+                  <div style={{ height: 5 }} />
+                </div>
+              </Segment>
+            )}
+
+            {filteredSuggestedPeople.length > 0 && (
+              <Header as="h4" attached>
+                People
+              </Header>
+            )}
+            {filteredSuggestedPeople.length > 0 && (
+              <Segment attached raised style={{ padding: 0 }}>
+                <div
+                  style={{
+                    maxWidth: searchBarWidth - 5,
+                    height: 60,
+                    padding: 5,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image.Group>
+                    {filteredSuggestedPeople.map((person) => {
+                      return (
+                        <Popup
+                          inverted
+                          content={person.text}
+                          trigger={
+                            <SecuredImageJWT
+                              key={"suggestion_person_" + person.key}
+                              onClick={() => {
+                                this.props.dispatch(
+                                  push(`/person/${person.key}`)
+                                );
+                                this.props.dispatch(
+                                  fetchPeopleAlbums(person.key)
+                                );
+                              }}
+                              height={50}
+                              width={50}
+                              circular
+                              src={serverAddress + person.face_url}
+                            />
+                          }
+                        />
+                      );
+                    })}
+                  </Image.Group>
+                </div>
+              </Segment>
+            )}
+
+            <Header as="h4" attached>
+              <Header.Content as={Link} to="/favorites">
+                <Icon name="star" color="yellow" /> Favorites
+              </Header.Content>
+            </Header>
+            <Header as="h4" attached="bottom">
+              <Header.Content as={Link} to="/hidden">
+                <Icon name="hide" color="red" /> Hidden
+              </Header.Content>
+            </Header>
+          </div>
+        )}
+      </div>
+    );
+    */
+
+    const {
+      filteredSuggestedUserAlbums,
+      filteredExampleSearchTerms,
+      filteredSuggestedPeople,
+      filteredSuggestedPlaces,
+      filteredSuggestedThings,
+    } = this.state;
+
+    return (
+      <div>
+        <Menu
+          style={{ contentAlign: "left", backgroundColor: "#eeeeee" }}
+          borderless
+          fixed="top"
+          size="mini"
+        >
+          <Menu.Menu position="left">
+            <Menu.Item>
+              <Icon
+                size="big"
+                onClick={() => {
+                  this.props.dispatch(toggleSidebar());
+                }}
+                name={"sidebar"}
+              />
+              <Button
+                color="black"
+                style={{
+                  padding: 2,
+                }}
+              >
+                <Image height={30} src="/logo-white.png" />
+              </Button>
             </Menu.Item>
           </Menu.Menu>
         </Menu>

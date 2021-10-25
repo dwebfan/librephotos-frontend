@@ -20,7 +20,7 @@ import {
   fetchCountStats,
   generateEventAlbums,
   generateEventAlbumTitles,
-  fetchSiteSettings,
+  fetchSystemInfo,
   updateAvatar,
   updateUser,
   manageUpdateUser,
@@ -76,7 +76,7 @@ export class Settings extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchCountStats());
-    this.props.dispatch(fetchSiteSettings());
+    this.props.dispatch(fetchSystemInfo());
     this.props.dispatch(fetchUserSelfDetails(this.props.auth.access.user_id));
     this.props.dispatch(fetchNextcloudDirectoryTree("/"));
     if (this.props.auth.access.is_admin) {
@@ -901,7 +901,7 @@ Settings = connect((store) => {
     auth: store.auth,
     util: store.util,
     gridType: store.ui.gridType,
-    siteSettings: store.util.siteSettings,
+    systemInfo: store.util.systemInfo,
     statusPhotoScan: store.util.statusPhotoScan,
     statusAutoAlbumProcessing: store.util.statusAutoAlbumProcessing,
     generatingAutoAlbums: store.util.generatingAutoAlbums,

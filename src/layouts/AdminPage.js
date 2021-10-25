@@ -19,7 +19,7 @@ import Modal from 'react-modal';
 import moment from 'moment';
 import {
   setSiteSettings,
-  fetchSiteSettings,
+  fetchSystemInfo,
   fetchJobList,
   deleteJob,
   fetchUserList,
@@ -35,7 +35,7 @@ export class AdminPage extends Component {
 
   componentDidMount() {
     if (this.props.auth.access.is_admin) {
-      this.props.dispatch(fetchSiteSettings());
+      this.props.dispatch(fetchSystemInfo());
       this.props.dispatch(fetchJobList());
       this.props.dispatch(fetchUserList());
       this.props.dispatch(fetchDirectoryTree());
@@ -81,10 +81,10 @@ export class AdminPage extends Component {
                       name="radioGroup"
                       onChange={() =>
                         this.props.dispatch(
-                          setSiteSettings({allow_registration: true}),
+                          setSiteSettings({ AllowRegistration: true}),
                         )
                       }
-                      checked={this.props.siteSettings.allow_registration}
+                      checked={this.props.systemInfo.AllowRegistration}
                     />
                   </Form.Field>
                   <Form.Field>
@@ -93,10 +93,10 @@ export class AdminPage extends Component {
                       name="radioGroup"
                       onChange={() =>
                         this.props.dispatch(
-                          setSiteSettings({allow_registration: false}),
+                          setSiteSettings({ AllowRegistration: false}),
                         )
                       }
-                      checked={!this.props.siteSettings.allow_registration}
+                      checked={!this.props.systemInfo.AllowRegistration}
                     />
                   </Form.Field>
                 </Form.Group>
@@ -509,7 +509,7 @@ AdminPage = connect(store => {
     auth: store.auth,
     util: store.util,
     gridType: store.ui.gridType,
-    siteSettings: store.util.siteSettings,
+    systemInfo: store.util.systemInfo,
     statusPhotoScan: store.util.statusPhotoScan,
     statusAutoAlbumProcessing: store.util.statusAutoAlbumProcessing,
     generatingAutoAlbums: store.util.generatingAutoAlbums,

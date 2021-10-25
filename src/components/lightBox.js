@@ -68,20 +68,52 @@ export class LightBox extends Component {
       ]
     ) {
       console.log("light box has not gotten main photo detail");
+      console.log(this.props.lightboxImageIndex)
+      console.log(this.props.idx2hash)
       var mainSrc = "/transparentbackground.png";
     } else {
       console.log("light box has got main photo detail");
+      var ext = this.props.photoDetails[
+        this.props.idx2hash.slice(this.props.lightboxImageIndex)[0]
+      ].image_ext;
       var mainSrc = serverAddress +
-       "/media/thumbnails_big/" +
+       "/asset/" +
         this.props.idx2hash.slice(this.props.lightboxImageIndex)[0] +
-        ".jpg";
+      "?token=" + this.props.auth.access.token;
+      if (ext !== "jpg" && ext != "bmp" && ext != "webp" && ext != "png") {
+        mainSrc = mainSrc + "&icodec=jpg"
+      }
       if (
         this.props.photoDetails[
           this.props.idx2hash.slice(this.props.lightboxImageIndex)[0]
         ].hidden &&
         !this.props.showHidden
       ) {
-        var mainSrc = "/hidden.png";
+        mainSrc = "/hidden.png";
+      }
+
+      var nextIndex = (this.props.lightboxImageIndex + 1) % this.props.idx2hash.length;
+      var nextHash = this.props.idx2hash.slice(nextIndex)[0];
+      var nextSrc = serverAddress +
+        "/asset/" + nextHash + "?token=" + this.props.auth.access.token;
+      console.log("next hash: " + nextHash)
+      if (this.props.photoDetails[nextHash] !== undefined) {
+        ext = this.props.photoDetails[nextHash].image_ext;
+        if (ext !== "jpg" && ext != "bmp" && ext != "png") {
+          nextSrc = nextSrc + "&icodec=jpg"
+        }
+      }
+
+      var prevIndex = (this.props.lightboxImageIndex - 1) % this.props.idx2hash.length;
+      var prevHash = this.props.idx2hash.slice(prevIndex)[0];
+      var prevSrc = serverAddress +
+        "/asset/" + prevHash + "?token=" + this.props.auth.access.token;
+      console.log("prev hash: " + prevHash)
+      if (this.props.photoDetails[prevHash] !== undefined) {
+        ext = this.props.photoDetails[prevHash].image_ext;
+        if (ext !== "jpg" && ext != "bmp" && ext != "png") {
+          prevSrc = prevSrc + "&icodec=jpg"
+        }
       }
 
       for (var i = 0; i < 10; i++) {
@@ -105,8 +137,12 @@ export class LightBox extends Component {
 
             // Since we disabled animations, we can set image_prev and image_next visibility hidden
             // Fixes prev/next large wide 16:9 images were visible at same time as main small 9:16 image in view
-            document.getElementsByClassName('ril-image-prev')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('ril-image-next')[0].style.visibility = 'hidden';
+            if (document.getElementsByClassName('ril-image-prev')[0] !== undefined) {
+              document.getElementsByClassName('ril-image-prev')[0].style.visibility = 'hidden';
+            }
+            if (document.getElementsByClassName('ril-image-next')[0] !== undefined) {
+              document.getElementsByClassName('ril-image-next')[0].style.visibility = 'hidden';
+            }
             document.getElementsByClassName('ril-image-current')[0].style.visibility = 'visible';
 
             // Make toolbar background fully transparent
@@ -123,22 +159,8 @@ export class LightBox extends Component {
         <Lightbox
           animationDisabled={true}
           mainSrc={mainSrc}
-          nextSrc={
-            serverAddress +
-            "/media/thumbnails_big/" +
-            this.props.idx2hash.slice(
-              (this.props.lightboxImageIndex + 1) % this.props.idx2hash.length
-            )[0] +
-            ".jpg"
-          }
-          prevSrc={
-            serverAddress +
-            "/media/thumbnails_big/" +
-            this.props.idx2hash.slice(
-              (this.props.lightboxImageIndex - 1) % this.props.idx2hash.length
-            )[0] +
-            ".jpg"
-          }
+          nextSrc={nextSrc}
+          prevSrc={prevSrc}
           toolbarButtons={[
             <div>
               {!this.props.photoDetails[
@@ -657,7 +679,7 @@ export class LightBox extends Component {
                                 ].similar_photos.slice(0,30).map(el=>(
                                   <Image width={95} height={95}
                                     key={el.image_hash}
-                                    src={serverAddress+"/media/square_thumbnails_small/"+el.image_hash+".jpg"}/>
+                                    src={serverAddress+"/asset/preview/"+el.image_hash+"?width=75"}/>
                                 ))
                           }
                           </Image.Group>

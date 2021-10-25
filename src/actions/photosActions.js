@@ -385,7 +385,7 @@ export function fetchHiddenPhotos() {
 export function fetchPhotoDetail(image_hash) {
   return function(dispatch) {
     dispatch({ type: "FETCH_PHOTO_DETAIL", payload: image_hash });
-    Server.get(`photos/${image_hash}/`, { timeout: 100000 })
+    Server.get(`photos/${image_hash}`, { timeout: 100000 })
       .then(response => {
         console.log("FETCH_PHOTO_DETAIL response")
         console.log(response.data)

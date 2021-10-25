@@ -35,10 +35,10 @@ export function deleteJob(job_id,page=1,page_size=10) {
 }
 
 
-export function setSiteSettings(siteSettings) {
+export function setSiteSettings(systemInfo) {
   return function(dispatch) {
     dispatch({ type: "SET_SITE_SETTINGS" });
-    Server.post("sitesettings",siteSettings)
+    Server.post("system", systemInfo)
       .then(response => {
         dispatch({
           type: "SET_SITE_SETTINGS_FULFILLED",
@@ -52,18 +52,18 @@ export function setSiteSettings(siteSettings) {
 }
 
 
-export function fetchSiteSettings() {
+export function fetchSystemInfo() {
   return function(dispatch) {
-    dispatch({ type: "FETCH_SITE_SETTINGS" });
-    Server.get("sitesettings")
+    dispatch({ type: "FETCH_SYSTEM_INFO" });
+    Server.get("system")
       .then(response => {
         dispatch({
-          type: "FETCH_SITE_SETTINGS_FULFILLED",
+          type: "FETCH_SYSTEM_INFO_FULFILLED",
           payload: response.data
         });
       })
       .catch(error => {
-        dispatch({ type: "FETCH_SITE_SETTINGS_REJECTED", payload: error });
+        dispatch({ type: "FETCH_SYSTEM_INFO_REJECTED", payload: error });
       });
   };
 }
