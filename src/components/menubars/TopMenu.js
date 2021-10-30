@@ -46,10 +46,15 @@ export class TopMenu extends Component {
   }
 
   componentDidMount() {
-    var intervalId = setInterval(() => {
-      this.props.dispatch(fetchWorkerAvailability(this.props.workerRunningJob));
-    }, 2000);
-    this.setState({ intervalId: intervalId });
+    if (this.props.siteSettings.fetchWorker) {
+      var intervalId = setInterval(() => {
+        this.props.dispatch(fetchWorkerAvailability(this.props.workerRunningJob));
+      }, 20000000);
+      this.setState({ intervalId: intervalId });
+    } else {
+      console.log("not configured to fetch work status periodically.")
+      this.props.dispatch(fetchWorkerAvailability(this.props.workerRunningJob))
+    }
   }
 
   componentWillUnmount() {
@@ -194,6 +199,8 @@ TopMenu = connect((store) => {
 
     workerAvailability: store.util.workerAvailability,
     workerRunningJob: store.util.workerRunningJob,
+
+    siteSettings: store.util.siteSettings,
 
     auth: store.auth,
     jwtToken: store.auth.jwtToken,

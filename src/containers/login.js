@@ -29,8 +29,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (username, password) => {
-    dispatch(login(username, password));
+  onSubmit: (serverAddress, username, password) => {
+    dispatch(login(serverAddress, username, password))
   },
   fetchSiteSettings: () => {
     dispatch(fetchSiteSettings());

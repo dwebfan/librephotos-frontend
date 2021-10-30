@@ -11,7 +11,9 @@
     "@vx/group": "0.0.161",
     "@vx/hierarchy": "0.0.161",
     "@vx/shape": "0.0.162",
+    "argon2-browser": "^1.18.0",
     "axios": "^0.18.0",
+    "base64-loader": "^1.0.0",
     "bootstrap": "^4.1.1",
     "calendar-months": "^1.0.1",
     "d3-hierarchy": "^1.1.6",
@@ -32,6 +34,7 @@
     "package.json": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.8.3",
+    "react-app-rewired": "^2.1.8",
     "react-avatar-editor": "^11.0.4",
     "react-calendar-heatmap": "^1.6.3",
     "react-content-loader": "^3.1.2",
@@ -77,10 +80,10 @@
     "zod": "^3.11.6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-app-rewired eject"
   },
   "proxy": "http://192.168.1.100:8000/",
   "devDependencies": {
