@@ -159,6 +159,10 @@ export class LightBox extends Component {
             console.log("lightbox trying to fetch photo detail");
             this.props.onImageLoad();
           }}
+          onImageLoadError={(imageSrc, _srcType, errorEven) => {
+            console.log("lightbox load photo detail failure");
+            console.log(errorEven)
+          }}
           onMovePrevRequest={this.props.onMovePrevRequest}
           onMoveNextRequest={this.props.onMoveNextRequest}
           reactModalStyle={{

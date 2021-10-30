@@ -22,7 +22,7 @@ export class LoginPage extends Component {
     username: "",
     password: "",
     serverAddress: "",
-    serverProtocol: "https://",
+    serverProtocol: "http://",
   };
   componentDidMount() {
     this.props.fetchSiteSettings();

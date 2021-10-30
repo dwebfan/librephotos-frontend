@@ -1,6 +1,8 @@
 import { push } from "connected-react-router";
 import { Server } from "../api_client/apiClient";
 
+const argon2 = require('argon2-browser')
+
 export const LOGIN_REQUEST = "@@auth/LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "@@auth/LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "@@auth/LOGIN_FAILURE";
@@ -33,13 +35,29 @@ export function signup(username, password, email, firstname, lastname) {
 export function login(username, password, from) {
   return function (dispatch) {
     dispatch({ type: "LOGIN" });
-    Server.post("/auth/token/obtain/", {
-      username: username,
-      password: password,
+    argon2.hash({
+      pass: password, salt: username + "@lomorage.lomoware",
+      time: 3, mem: 4096, parallelism: 1, hashLen: 32, type: argon2.ArgonType.Argon2id
     })
-      .then((response) => {
-        dispatch({ type: "LOGIN_FULFILLED", payload: response.data });
-        dispatch(push(from));
+      .then(h => {
+        var hashedPwd = [];
+        for (var n = 0; n < h.encoded.length; n++) {
+          hashedPwd += Number(h.encoded.charCodeAt(n)).toString(16);
+        }
+        hashedPwd += '00'
+        Server.post("/auth/token/obtain/", {
+          username: username,
+          password: hashedPwd,
+        }, {
+          crossdomain: true,
+        })
+          .then((response) => {
+            dispatch({ type: "LOGIN_FULFILLED", payload: response.data });
+            dispatch(push(from));
+          })
+          .catch((err) => {
+            dispatch({ type: "LOGIN_REJECTED", payload: err });
+          });
       })
       .catch((err) => {
         dispatch({ type: "LOGIN_REJECTED", payload: err });
