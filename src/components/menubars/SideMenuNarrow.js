@@ -106,10 +106,6 @@ export class SideMenuNarrow extends Component {
         >
           <Dropdown.Menu>
             <Dropdown.Header>{this.props.t("sidemenu.albums")}</Dropdown.Header>
-            <Dropdown.Item as={Link} to="/people">
-              <Icon name="users" />
-              {"  " + this.props.t("sidemenu.people")}
-            </Dropdown.Item>
             <Dropdown.Item as={Link} to="/places">
               <Icon name="map" />
               {"  " + this.props.t("sidemenu.places")}
@@ -133,94 +129,6 @@ export class SideMenuNarrow extends Component {
           <small>{this.props.t("sidemenu.albums")}</small>
         </div>
 
-        <Divider hidden />
-        <Dropdown pointing="left" item icon={<Icon size="big" name="bar chart" />}>
-          <Dropdown.Menu>
-            <Dropdown.Header>
-              <div style={{ overflow: "visible" }}>{this.props.t("sidemenu.dataviz")}</div>
-            </Dropdown.Header>
-            <Dropdown.Item as={Link} to="/placetree">
-              <Icon name="sitemap" />
-              {"  " + this.props.t("sidemenu.placetree")}
-            </Dropdown.Item>
-
-            <Dropdown.Item as={Link} to="/wordclouds">
-              <Icon name="cloud" />
-              {"  " + this.props.t("sidemenu.wordclouds")}
-            </Dropdown.Item>
-
-            <Dropdown.Item as={Link} to="/timeline">
-              <Icon name="bar chart" />
-              {"  " + this.props.t("sidemenu.timeline")}
-            </Dropdown.Item>
-
-            <Dropdown.Item as={Link} to="/socialgraph">
-              <Icon name="share alternate" />
-              {"  " + this.props.t("sidemenu.socialgraph")}
-            </Dropdown.Item>
-
-            <Dropdown.Item as={Link} to="/facescatter">
-              <Icon name="user circle" />
-              {"  " + this.props.t("sidemenu.facecluster")}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <div style={{ marginTop: -17 }}>
-          <small>{this.props.t("sidemenu.datavizsmall")}</small>
-        </div>
-
-        <Divider hidden />
-        <Dropdown pointing="left" item icon={<Icon size="big" name="dashboard" />}>
-          <Dropdown.Menu>
-            <Dropdown.Header>{this.props.t("sidemenu.dashboards")}</Dropdown.Header>
-            <Dropdown.Item as={Link} to="/faces">
-              <Icon name="user circle outline" />
-              {"  " + this.props.t("sidemenu.facerecognition")}
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/settings">
-              <Icon name="database" />
-              {"  " + this.props.t("sidemenu.library")}
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <div style={{ marginTop: -17 }}>
-          <small>{this.props.t("sidemenu.dashboards")}</small>
-        </div>
-
-        {this.props.auth && (
-          <div>
-            <Divider hidden />
-            <Dropdown pointing="left" item icon={<Icon size="big" name="users" />}>
-              <Dropdown.Menu>
-                <Dropdown.Header>{this.props.t("sidemenu.sharing")}</Dropdown.Header>
-
-                <Dropdown.Item disabled={!this.props.auth.access} as={Link} to={`/users/`}>
-                  <Icon name="globe" />
-                  {"  " + this.props.t("sidemenu.publicphotos")}
-                </Dropdown.Item>
-
-                <Dropdown.Item as={Link} to="/shared/fromme/photos/">
-                  <Icon name="share" color="red" />
-                  {"  " + this.props.t("sidemenu.youshared")}
-                </Dropdown.Item>
-
-                <Dropdown.Item as={Link} to="/shared/tome/photos/">
-                  <Icon name="share" color="green" />
-                  {"  " + this.props.t("sidemenu.sharedwithyou")}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <div style={{ marginTop: -17 }}>
-              <small>{this.props.t("sidemenu.sharing")}</small>
-            </div>
-          </div>
-        )}
-
-        <Divider hidden />
-        <Menu.Item name="trash" as={Link} to="/deleted">
-          <Icon size="big" name="trash"></Icon>
-          <small>{this.props.t("photos.deleted")}</small>
-        </Menu.Item>
       </Menu>
     );
   }
