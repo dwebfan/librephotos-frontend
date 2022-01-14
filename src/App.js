@@ -58,7 +58,7 @@ class Nav extends React.Component {
   }
 }
 
-const noMenubarPaths = ["/signup", "/login"];
+const noMenubarPaths = ["/signup", "/signon"];
 
 class App extends Component {
   render() {
@@ -81,7 +81,7 @@ class App extends Component {
           <Switch>
             <PrivateRoute path="/" component={TimestampPhotos} exact />
 
-            <Route path="/login" component={Login} />
+            <Route path="/signon" component={Login} />
 
             <Route path="/signup" component={SignupPage} />
 

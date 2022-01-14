@@ -65,7 +65,7 @@ export class TopMenuPublic extends Component {
           </Menu.Item>
 
           <Menu.Item position="right">
-            <Button as={Link} to="/login">
+            <Button as={Link} to="/signon">
               Login
             </Button>
           </Menu.Item>

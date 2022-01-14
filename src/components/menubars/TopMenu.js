@@ -170,27 +170,6 @@ export class TopMenu extends Component {
                       <Trans i18nKey="topmenu.logout">Logout</Trans>
                     </b>
                   </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => this.props.dispatch(push("/settings"))}
-                  >
-                    <Icon name="settings" />
-                    <b>
-                      <Trans i18nKey="topmenu.settings">Settings</Trans>
-                    </b>
-                  </Dropdown.Item>
-                  {this.props.auth.access &&
-                    this.props.auth.access.is_admin && <Dropdown.Divider />}
-
-                  {this.props.auth.access && this.props.auth.access.is_admin && (
-                    <Dropdown.Item
-                      onClick={() => this.props.dispatch(push("/admin"))}
-                    >
-                      <Icon name="wrench" />
-                      <b>
-                        <Trans i18nKey="topmenu.adminarea">Admin Area</Trans>
-                      </b>
-                    </Dropdown.Item>
-                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item>
